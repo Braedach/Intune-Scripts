@@ -25,11 +25,13 @@ If (Test-Path -Path 'Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Un
          Write-Output "True the Update key doesnt exist - create and edit it"
         }
         #Rebuild the key and its entries
+        #Might need to change these to Dword entries but no problem reported in GP using this script.  Upload - distribute - test.
         Write-Output "Rebuilding the Google Update keys"
         New-Item -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update'
-        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'Updatedefault' -value '3'
         New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'AutoUpdateCheckPeriodMinutes' -value '120'
-        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'Update{8A69D345-D564-463C-AFF1-A69D9E530F96}' -value '1'
+        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'CloudPolicyOverridesPlatformPolicy' -value '1'
+        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'UpdateDefault' -value '1'
+        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'InstallDefault' -value '1'
         Get-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update'
     }
     else
