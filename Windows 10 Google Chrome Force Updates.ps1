@@ -28,10 +28,10 @@ If (Test-Path -Path 'Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Un
         #Might need to change these to Dword entries but no problem reported in GP using this script.  Upload - distribute - test.
         Write-Output "Rebuilding the Google Update keys"
         New-Item -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update'
-        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'AutoUpdateCheckPeriodMinutes' -value '120'
-        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'CloudPolicyOverridesPlatformPolicy' -value '1'
-        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'UpdateDefault' -value '1'
-        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'InstallDefault' -value '1'
+        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'AutoUpdateCheckPeriodMinutes' -type Dword -value '00000078'
+        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'CloudPolicyOverridesPlatformPolicy' -type Dword -value '00000001'
+        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'UpdateDefault' -type Dword -value '00000001'
+        New-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update' -Name 'InstallDefault' -type Dword -value '00000001'
         Get-ItemProperty -Path 'Registry::HKLM\SOFTWARE\Policies\Google\Update'
     }
     else
