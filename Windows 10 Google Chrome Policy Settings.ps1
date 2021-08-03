@@ -35,11 +35,11 @@ If (Test-Path -Path $installevidence)
 
         New-Item -Path $regkey -Force
 
-        #Security settings
+       #Security settings
         New-ItemProperty -Path $regkey -Name 'CloudPolicyOverridesPlatformPolicy' -value '1'
-        New-ItemProperty -Path $regkey -Name 'BackgroundModeEnabled' -value '0'
         New-ItemProperty -Path $regkey -Name 'ComponentUpdatesEnabled' -value '1'
-        New-ItemProperty -Path $regkey -Name 'DnsOverHttpsMode' -value 'automatic'
+        New-ItemProperty -Path $regkey -Name 'DnsOverHttpsMode' -value 'secure'
+        New-ItemProperty -Path $regkey -Name 'DnsOverHttpsTemplates' -value 'https://security.cloudflare-dns.com/dns-query'
         New-ItemProperty -Path $regkey -Name 'BuiltInDnsClientEnabled' -value '1'
         New-ItemProperty -Path $regkey -Name 'SSLVersionMin' -value 'tls1.2'
 
