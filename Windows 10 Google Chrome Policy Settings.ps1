@@ -1,17 +1,25 @@
-﻿<#
+<#
 
 Setup Google Chrome Policies iaw MSDE Guidelines
 Test to see if it is installed using the key defined by MSDE Software evidence
 Delete the previous key if in existance to allow for a complete refresh of that registry key
 Recreate the key properly iaw guideance gained from Chrome and the GP Policy installed and configured via ADMX
-Updated 29-06-2021
+Updated 08-11-2021
+
+This needs updating for Google Chrome Desktop over enterprise version as this is no longer being deployed
+
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe
+
+CSP - Yet to be confirmed - 
+                            ./Device/Vendor/MSFT/Policy/Config/Chrome~Policy~googlechrome/[setting]
 
 #>
 
 
 #Define the registry key
 #Need to redefine this as not taking into account the two different install methods for Chrome or need a new test case
-$installevidence = "Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{2EE8C646-3C78-392B-8D11-220908787966}"
+$installevidence = "Registry::HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe"
 $regkey = "Registry::HKLM\SOFTWARE\Policies\Google\Chrome\"
 
 If (Test-Path -Path $installevidence)
@@ -35,7 +43,7 @@ If (Test-Path -Path $installevidence)
 
         New-Item -Path $regkey -Force
 
-       #Security settings
+        #Security settings
         New-ItemProperty -Path $regkey -Name 'CloudPolicyOverridesPlatformPolicy' -value '1'
         New-ItemProperty -Path $regkey -Name 'ComponentUpdatesEnabled' -value '1'
         New-ItemProperty -Path $regkey -Name 'DnsOverHttpsMode' -value 'secure'
